@@ -346,6 +346,121 @@
       min-width: 0;
     }
 
+    .command-center {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
+      gap: 14px;
+      padding: 18px;
+      border: 1px solid rgba(87, 166, 255, 0.34);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, rgba(87, 166, 255, 0.16), rgba(61, 220, 151, 0.06)),
+        rgba(21, 29, 40, 0.94);
+      box-shadow: var(--shadow);
+    }
+
+    .command-main {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .command-main h3 {
+      margin: 0;
+      font-size: clamp(22px, 2.3vw, 30px);
+      line-height: 1.08;
+    }
+
+    .command-main p,
+    .command-side p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .command-side {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(16, 24, 34, 0.66);
+    }
+
+    .quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .setup-steps {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .setup-step {
+      display: grid;
+      gap: 8px;
+      min-height: 120px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(16, 24, 34, 0.72);
+    }
+
+    .setup-step strong {
+      font-size: 13px;
+    }
+
+    .setup-step small {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    details.advanced {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(16, 24, 34, 0.46);
+    }
+
+    details.advanced > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 750;
+      list-style: none;
+    }
+
+    details.advanced > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.advanced > summary::after {
+      content: "+";
+      color: var(--blue);
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    details.advanced[open] > summary::after {
+      content: "-";
+    }
+
+    .advanced-body {
+      display: grid;
+      gap: 12px;
+      padding: 0 12px 12px;
+    }
+
     .panel-head {
       display: flex;
       align-items: flex-start;
@@ -907,10 +1022,10 @@
 
     .calendar {
       display: grid;
-      grid-template-columns: repeat(7, minmax(116px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(154px, 1fr));
       gap: 10px;
       max-width: 100%;
-      overflow-x: auto;
+      overflow-x: visible;
       padding-bottom: 4px;
     }
 
@@ -1319,6 +1434,33 @@
       display: grid;
     }
 
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 34;
+      display: none;
+      justify-content: end;
+      background: rgba(2, 6, 12, 0.48);
+      backdrop-filter: blur(6px);
+    }
+
+    .drawer-backdrop.open {
+      display: flex;
+    }
+
+    .drawer {
+      width: min(440px, 100%);
+      height: 100%;
+      display: grid;
+      align-content: start;
+      gap: 14px;
+      padding: 18px;
+      overflow-y: auto;
+      border-left: 1px solid var(--line-strong);
+      background: #111923;
+      box-shadow: var(--shadow);
+    }
+
     .modal {
       width: min(560px, 100%);
       display: grid;
@@ -1423,6 +1565,11 @@
       .right-panel {
         padding: 16px 22px 28px;
       }
+
+      .command-center,
+      .setup-steps {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 640px) {
@@ -1484,6 +1631,11 @@
         grid-column: 1 / -1;
       }
 
+      .command-center,
+      .drawer {
+        padding: 14px;
+      }
+
       .goal-node,
       .goal-node[data-level="quarter"],
       .goal-node[data-level="week"],
@@ -1513,12 +1665,12 @@
       </div>
 
       <nav class="nav" aria-label="Main navigation">
-        <button class="active" data-view="dashboard"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></button>
+        <button class="active" data-view="dashboard"><i data-lucide="layout-dashboard"></i><span>Today</span></button>
         <button data-view="goals"><i data-lucide="target"></i><span>Goals</span></button>
         <button data-view="daily"><i data-lucide="list-checks"></i><span>Daily Plan</span></button>
-        <button data-view="weekly"><i data-lucide="bar-chart-3"></i><span>Weekly Review</span></button>
+        <button data-view="weekly"><i data-lucide="bar-chart-3"></i><span>Review</span></button>
         <button data-view="habits"><i data-lucide="repeat-2"></i><span>Habits</span></button>
-        <button data-view="schedule"><i data-lucide="calendar-days"></i><span>Schedule</span></button>
+        <button data-view="schedule"><i data-lucide="calendar-days"></i><span>Calendar</span></button>
         <button data-view="reflection"><i data-lucide="notebook-pen"></i><span>Reflection</span></button>
         <button data-view="social"><i data-lucide="network"></i><span>Social Environment</span></button>
         <button data-view="settings"><i data-lucide="settings"></i><span>Settings</span></button>
@@ -1896,10 +2048,10 @@
           <section class="panel">
             <div class="panel-head">
               <div>
-                <h3>Schedule Calendar</h3>
-                <p>Lịch tuần gom task theo loại và trạng thái.</p>
+                <h3>Lịch tuần</h3>
+                <p>Tự viết, sửa hoặc kéo lại nhịp từng ngày.</p>
               </div>
-              <button class="text-button primary" data-modal="scheduleModal"><i data-lucide="calendar-plus"></i>Thêm lịch trình</button>
+              <button class="text-button primary" data-modal="scheduleModal"><i data-lucide="calendar-plus"></i>Tự viết task</button>
             </div>
             <div class="calendar">
               <article class="calendar-day"><header><strong>Mon</strong><span>22</span></header><div class="mini-task" style="--accent: var(--blue);"><strong>C pointer drills</strong><span>08:00-09:30</span></div><div class="mini-task" style="--accent: var(--amber);"><strong>Workout</strong><span>18:30</span></div></article>
@@ -2041,7 +2193,7 @@
       <section class="panel">
         <div class="panel-head">
           <div>
-            <h3>Today Queue</h3>
+            <h3>Việc còn mở</h3>
             <p>Nhìn là biết việc tiếp theo.</p>
           </div>
         </div>
@@ -2108,12 +2260,12 @@
 
   <script>
     const titles = {
-      dashboard: ["Dashboard", "Hôm nay: 90 phút deep work, English mock interview, và kiểm tra robot car steering."],
+      dashboard: ["Today", "Mở app lên là thấy ngay việc tiếp theo, lý do và bản rút gọn nếu thiếu thời gian."],
       goals: ["Goals", "Quản lý mục tiêu theo 4 tầng: 1 năm, 3 tháng, tuần, hôm nay."],
       daily: ["Daily Plan", "Theo dõi việc đã làm, chưa làm và lý do trì hoãn trong ngày."],
-      weekly: ["Weekly Review", "Tổng hợp dữ liệu tuần để điều chỉnh hệ thống tuần sau."],
+      weekly: ["Review", "Nhìn lại tuần, tạo kế hoạch tuần sau và chỉ mở chi tiết khi cần."],
       habits: ["Habits", "Streak tracker cho các thói quen nền tảng."],
-      schedule: ["Schedule Calendar", "Calendar view cho lịch học, project, workout và social."],
+      schedule: ["Calendar", "Lịch tuần với gợi ý sửa lịch khi task bị skip, chồng giờ hoặc quá tải."],
       reflection: ["Reflection Journal", "Ghi lại kết quả, nhiễu động và bài học trong ngày."],
       social: ["Social Environment", "Phân loại mối quan hệ theo ảnh hưởng đến định hướng phát triển."],
       settings: ["Settings", "Cấu hình nhịp vận hành cá nhân."]
@@ -2214,12 +2366,12 @@
         Skipped: "skipped"
       };
       const titles = {
-        dashboard: ["Dashboard", "Mở app lên là thấy ngay hôm nay cần làm gì, trạng thái ra sao, và bước tiếp theo là gì."],
+        dashboard: ["Today", "Mở app lên là thấy ngay việc tiếp theo, lý do và bản rút gọn nếu thiếu thời gian."],
         goals: ["Goals", "Mục tiêu được lưu riêng, có tiến độ, deadline, trạng thái và liên kết với từng phương diện."],
         daily: ["Daily Plan", "Kế hoạch, task, lý do trì hoãn và quick note được lưu theo từng ngày."],
-        weekly: ["Weekly Review", "Báo cáo chi tiết tự tính từ 7 ngày gần nhất trong dữ liệu đã lưu."],
+        weekly: ["Review", "Nhìn lại tuần, tạo kế hoạch tuần sau và chỉ mở chi tiết khi cần."],
         habits: ["Habits", "Habit tracker lưu theo ngày và tự tính streak liên tục."],
-        schedule: ["Schedule Calendar", "Calendar view theo tuần, bấm vào ngày để xem hoặc thêm lịch trình."],
+        schedule: ["Calendar", "Lịch tuần với gợi ý sửa lịch khi task bị skip, chồng giờ hoặc quá tải."],
         reflection: ["Reflection Journal", "Review cuối ngày lưu năng lượng, tập trung, nhiễu động và điều chỉnh ngày mai."],
         social: ["Social Environment", "Danh sách mối quan hệ lưu lâu dài, phân loại theo mức ảnh hưởng."],
         settings: ["Settings", "Tùy chỉnh nhịp vận hành, xuất dữ liệu và reset dữ liệu demo."]
@@ -2228,6 +2380,7 @@
       let state = loadState();
       let toastTimer = 0;
       let taskModalContext = null;
+      let taskDrawerContext = null;
 
       const searchInput = document.querySelector(".search input");
       const searchPanel = document.createElement("div");
@@ -2284,7 +2437,7 @@
       }
 
       function normalizeState(nextState) {
-        nextState.version = 6;
+        nextState.version = 7;
         nextState.currentDate ||= today;
         nextState.days ||= {};
         nextState.goals ||= [];
@@ -2292,6 +2445,11 @@
         nextState.recurring ||= [];
         nextState.nextWeekPlan = normalizeNextWeekPlan(nextState.nextWeekPlan);
         nextState.adaptiveRescheduler = normalizeAdaptiveRescheduler(nextState.adaptiveRescheduler);
+        nextState.ui = {
+          setupComplete: false,
+          simpleMode: true,
+          ...(nextState.ui || {})
+        };
         nextState.settings ||= { accent: "Blue + Green", focusBlock: "90 minutes", reviewReminder: true };
         if (!nextState.days[nextState.currentDate]) nextState.days[nextState.currentDate] = createBlankDay(nextState.currentDate);
         const defaults = {
@@ -2436,7 +2594,7 @@
         }
 
         return {
-          version: 6,
+          version: 7,
           currentDate: today,
           settings: {
             accent: "Blue + Green",
@@ -2514,6 +2672,10 @@
           recurring: [],
           nextWeekPlan: createBlankPlan(),
           adaptiveRescheduler: createBlankRescheduler(),
+          ui: {
+            setupComplete: false,
+            simpleMode: true
+          },
           days
         };
       }
@@ -2934,7 +3096,7 @@
             pushUnique(makeRescheduleSuggestion(
               second,
               iso,
-              "Time conflict",
+              "Trùng giờ",
               "move",
               `Đang chồng với “${first.title}” (${first.start}-${first.end}); dời task sau sang slot trống gần nhất.`
             ));
@@ -2948,9 +3110,9 @@
               pushUnique(makeRescheduleSuggestion(
                 movable,
                 iso,
-                "Overloaded day",
+                "Ngày quá tải",
                 "move",
-                `${stats.plannedHours.toFixed(1)}h planned trong một ngày; chuyển block dài nhất sang ngày nhẹ hơn.`
+                `${stats.plannedHours.toFixed(1)}h đã lên lịch trong một ngày; chuyển block dài nhất sang ngày nhẹ hơn.`
               ));
             }
           }
@@ -3147,6 +3309,15 @@
           openImportant,
           load: plannedHours >= 8 ? "Overloaded" : plannedHours >= 5 ? "Full" : "Open"
         };
+      }
+
+      function loadLabel(load) {
+        return {
+          Open: "Còn chỗ",
+          Full: "Đầy",
+          Heavy: "Nặng",
+          Overloaded: "Quá tải"
+        }[load] || load;
       }
 
       function taskGoalOptions(selected = "") {
@@ -3430,9 +3601,143 @@
           <div class="schedule-block">
             <div class="period"><strong>${period.label}</strong><span>${period.time}</span></div>
             <div class="task-list">
-              ${period.tasks.length ? period.tasks.map((task) => taskRow(task, iso)).join("") : `<div class="empty-state">Chưa có task. Bấm Add Task để lên lịch cho khung này.</div>`}
+              ${period.tasks.length ? period.tasks.map((task) => taskRow(task, iso)).join("") : renderTaskEmptyState("period")}
             </div>
           </div>`).join("");
+      }
+
+      function nextActionTask(iso = state.currentDate) {
+        const tasks = [...getDay(iso).tasks]
+          .filter((task) => !["Done", "Skipped"].includes(task.status))
+          .sort((a, b) => a.start.localeCompare(b.start));
+        return tasks.find((task) => task.status === "Doing") || tasks[0] || null;
+      }
+
+      function setupSteps() {
+        const day = getDay();
+        return [
+          { id: "goal", title: "Chọn 1 goal chính", done: state.goals.length > 0, action: "setup-add-goal", cta: "Thêm goal", detail: "Có đích rõ thì mọi task mới bớt rời rạc." },
+          { id: "habit", title: "Chọn habit nền", done: Object.values(day.habits).some(Boolean), action: "setup-toggle-core-habits", cta: "Chọn nhanh", detail: "Sleep, deep work, review là bộ tối thiểu." },
+          { id: "rhythm", title: "Tạo nhịp lặp", done: state.recurring.length > 0, action: "setup-enable-rhythm", cta: "Bật nhịp", detail: "Một lịch lặp nhẹ giúp hệ thống tự chạy." },
+          { id: "today", title: "Có plan hôm nay", done: day.tasks.length > 0, action: "generate-today-plan", cta: "Tạo plan", detail: "Bắt đầu với 2-3 task đủ rõ giờ." }
+        ];
+      }
+
+      function setupProgress() {
+        const steps = setupSteps();
+        return { steps, done: steps.filter((step) => step.done).length, total: steps.length };
+      }
+
+      function generateTodayPlan() {
+        const templateIds = ["deep-embedded", "workout-20", "daily-review"];
+        let added = 0;
+        templateIds.forEach((id) => {
+          const template = templateById(id);
+          if (!template) return;
+          if (addTaskToDate(state.currentDate, buildTaskFromTemplate(template))) added += 1;
+        });
+        const day = getDay();
+        if (!day.focus.task && day.tasks[0]) {
+          day.focus.task = day.tasks[0].title;
+          day.focus.why = day.tasks[0].notes || "Task này là điểm kéo tiến độ hôm nay.";
+          day.focus.start = day.tasks[0].start;
+          day.focus.end = day.tasks[0].end;
+        }
+        return added;
+      }
+
+      function createMinimumBlock(minutes = 30) {
+        const source = nextActionTask() || buildTaskFromTemplate(templateById("deep-embedded"));
+        const slot = findOpenSlot(minutes, state.currentDate);
+        const title = `${source.title} · ${minutes} phút`;
+        return addTaskToDate(slot.date, {
+          id: uid("task"),
+          title,
+          start: slot.start,
+          end: slot.end,
+          type: source.type || "Study",
+          status: "Planned",
+          goalId: source.goalId || "",
+          notes: `Bản rút gọn để vẫn có tiến độ khi thiếu thời gian. ${source.notes || ""}`.trim()
+        });
+      }
+
+      function renderTaskEmptyState(context = "day", iso = state.currentDate) {
+        const calendarEmpty = context === "calendar";
+        return `
+          <div class="empty-state">
+            <div class="stack">
+              <span>${calendarEmpty ? "Ngày này trống. Chọn một hành động nhanh hoặc tự viết task đầu tiên." : "Chưa có task. Bắt đầu bằng một mẫu nhỏ là đủ."}</span>
+              <div class="quick-actions">
+                <button class="text-button" data-action="apply-template" data-date="${iso}" data-template-id="deep-embedded"><i data-lucide="brain"></i>Deep work</button>
+                <button class="text-button" data-action="apply-template" data-date="${iso}" data-template-id="workout-20"><i data-lucide="dumbbell"></i>Workout</button>
+                ${calendarEmpty ? `<button class="text-button" data-action="new-task-for-date" data-date="${iso}"><i data-lucide="pencil"></i>Tự viết</button>` : `<button class="text-button" data-action="generate-today-plan"><i data-lucide="sparkles"></i>Tạo plan hôm nay</button>`}
+              </div>
+            </div>
+          </div>`;
+      }
+
+      function renderSetupWizard() {
+        const progress = setupProgress();
+        if (state.ui.setupComplete && progress.done === progress.total) return "";
+        return `
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <h3>Setup nhanh</h3>
+                <p>Đi qua 4 bước nhỏ để app bớt rỗng và tự gợi ý tốt hơn. Không cần hoàn hảo ngay.</p>
+              </div>
+              <div class="inline-controls">
+                ${pill(`${progress.done}/${progress.total}`, progress.done === progress.total ? "done" : "planned")}
+                <button class="text-button" data-action="finish-onboarding"><i data-lucide="check"></i>Ẩn setup</button>
+              </div>
+            </div>
+            <div class="setup-steps">
+              ${progress.steps.map((step) => `
+                <div class="setup-step">
+                  ${pill(step.done ? "Done" : "Next", step.done ? "done" : "doing")}
+                  <strong>${step.title}</strong>
+                  <small>${step.detail}</small>
+                  <button class="text-button ${step.done ? "" : "primary"}" data-action="${step.action}">${step.done ? "Xem lại" : step.cta}</button>
+                </div>`).join("")}
+            </div>
+          </section>`;
+      }
+
+      function renderTodayCommandCenter() {
+        const day = getDay();
+        const task = nextActionTask();
+        const stats = scheduleStats();
+        const focusTitle = task?.title || day.focus.task || "Chưa có việc tiếp theo";
+        const focusWhy = task
+          ? task.notes || taskGoalLabel(task)
+          : day.focus.why || "Tạo một plan nhẹ để app có điểm bắt đầu.";
+        const fallback = task ? "Nếu thiếu thời gian, chọn bản rút gọn để vẫn giữ nhịp." : "Nếu hôm nay chưa có lịch, tạo plan mẫu trước rồi sửa sau.";
+        return `
+          <section class="command-center">
+            <div class="command-main">
+              ${pill(task ? "Việc tiếp theo" : "Ngày trống", task ? "doing" : "planned")}
+              <h3>${escapeHtml(focusTitle)}</h3>
+              <p>${escapeHtml(focusWhy)}</p>
+              <div class="quick-actions">
+                <button class="text-button primary" data-action="start-next-task"><i data-lucide="play"></i>${task?.status === "Doing" ? "Đang làm" : "Bắt đầu việc tiếp theo"}</button>
+                <button class="text-button" data-modal="scheduleModal"><i data-lucide="plus"></i>Thêm task</button>
+                <button class="text-button" data-action="fix-schedule"><i data-lucide="wand-sparkles"></i>Sửa lịch</button>
+              </div>
+            </div>
+            <div class="command-side">
+              <strong>Phương án nhẹ</strong>
+              <p>${escapeHtml(fallback)}</p>
+              <div class="quick-actions">
+                <button class="text-button" data-action="create-minimum-block" data-minutes="30">30 phút</button>
+                <button class="text-button" data-action="create-minimum-block" data-minutes="60">60 phút</button>
+                <button class="text-button" data-action="create-minimum-block" data-minutes="90">90 phút</button>
+              </div>
+              <div class="report-grid">
+                <div class="report-row"><div><strong>Hôm nay</strong><small>${stats.plannedHours.toFixed(1)}h đã lên lịch · ${stats.conflicts.length} trùng giờ</small></div>${pill(loadLabel(stats.load), stats.load === "Overloaded" ? "skipped" : stats.load === "Full" ? "planned" : "done")}</div>
+              </div>
+            </div>
+          </section>`;
       }
 
       function renderDashboard() {
@@ -3440,13 +3745,20 @@
         const report = calcWeeklyReport();
         document.getElementById("dashboard").innerHTML = `
           <div class="stack">
-            <div class="grid-4">${aspectMetrics().map(renderAspectCard).join("")}</div>
+            ${renderSetupWizard()}
+            ${renderTodayCommandCenter()}
+            <details class="advanced">
+              <summary>Tình hình 4 trụ cột</summary>
+              <div class="advanced-body">
+                <div class="grid-4">${aspectMetrics().map(renderAspectCard).join("")}</div>
+              </div>
+            </details>
             <div class="grid-2">
               <section class="panel">
                 <div class="panel-head">
                   <div>
-                    <h3>Today Focus</h3>
-                    <p>Được lưu theo ngày ${formatDate(state.currentDate, { weekday: "long", day: "2-digit", month: "2-digit", year: "numeric" })}.</p>
+                    <h3>Focus hôm nay</h3>
+                    <p>Chỉnh mục tiêu chính của ngày nếu command center chưa đúng.</p>
                   </div>
                   <button class="text-button ${day.focus.completed ? "" : "primary"}" id="completeFocus" data-action="toggle-focus">
                     <i data-lucide="${day.focus.completed ? "badge-check" : "check"}"></i>${day.focus.completed ? "Completed" : "Done"}
@@ -3475,8 +3787,8 @@
               <section class="panel">
                 <div class="panel-head">
                   <div>
-                    <h3>Analytics Snapshot</h3>
-                    <p>Tính từ 7 ngày gần nhất.</p>
+                    <h3>Số liệu tuần</h3>
+                    <p>Chỉ cần nhìn khi muốn biết hệ thống đang lệch ở đâu.</p>
                   </div>
                 </div>
                 <div class="radar">
@@ -3494,10 +3806,10 @@
               <section class="panel">
                 <div class="panel-head">
                   <div>
-                    <h3>Daily Schedule</h3>
-                    <p>Task thật, đổi trạng thái/xóa được, lưu theo ngày.</p>
+                    <h3>Lịch hôm nay</h3>
+                    <p>Đổi trạng thái nhanh. Bấm task để mở drawer gọn.</p>
                   </div>
-                  <button class="text-button" data-modal="scheduleModal"><i data-lucide="plus"></i>Add Task</button>
+                  <button class="text-button primary" data-modal="scheduleModal"><i data-lucide="plus"></i>Thêm task</button>
                 </div>
                 <div class="timeline">${renderTimeline()}</div>
               </section>
@@ -3548,7 +3860,7 @@
               <div class="logic-strip">
                 <div class="logic-card"><strong>1. Direction</strong><small>Mục tiêu 1 năm trả lời “mình đang trở thành ai?”.</small>${pill(`${state.goals.filter((goal) => goal.level === "year").length} mục tiêu`, "study")}</div>
                 <div class="logic-card"><strong>2. Execution</strong><small>Task trong lịch phải gắn với goal để không biến calendar thành to-do rời rạc.</small>${pill(`${Object.values(state.days).flatMap((day) => day.tasks).filter((task) => task.goalId).length} linked tasks`, "done")}</div>
-                <div class="logic-card"><strong>3. Feedback</strong><small>Weekly Review dùng task + habit + reflection để điều chỉnh goal bị nghẽn.</small>${pill(`${calcWeeklyReport().atRiskGoals.length} risk`, calcWeeklyReport().atRiskGoals.length ? "planned" : "done")}</div>
+                <div class="logic-card"><strong>3. Feedback</strong><small>Review tuần dùng task + habit + reflection để điều chỉnh goal bị nghẽn.</small>${pill(`${calcWeeklyReport().atRiskGoals.length} rủi ro`, calcWeeklyReport().atRiskGoals.length ? "planned" : "done")}</div>
               </div>
               <div class="goal-map">
                 ${rootGoals.map((goal) => renderGoalTree(goal)).join("") || `<div class="empty-state">Chưa có goal gốc. Hãy tạo mục tiêu 1 năm trước.</div>`}
@@ -3636,7 +3948,7 @@
                 </div>
                 <button class="text-button" data-modal="scheduleModal"><i data-lucide="plus"></i>Thêm task</button>
               </div>
-              <div class="timeline">${day.tasks.map((task) => taskRow(task)).join("") || `<div class="empty-state">Chưa có task cho ngày này.</div>`}</div>
+              <div class="timeline">${day.tasks.map((task) => taskRow(task)).join("") || renderTaskEmptyState("day")}</div>
             </section>
           </div>`;
       }
@@ -3651,8 +3963,8 @@
           <section class="panel">
             <div class="panel-head">
               <div>
-                <h3>Next Week Planning Flow</h3>
-                <p>Tạo draft từ Weekly Review, sửa từng task, accept task đủ tốt rồi mới đưa vào Schedule.</p>
+                <h3>Lên kế hoạch tuần sau</h3>
+                <p>Tạo draft từ review tuần, sửa từng task, duyệt task đủ tốt rồi mới đưa vào Calendar.</p>
               </div>
               <div class="inline-controls">
                 <button class="text-button primary" data-action="generate-next-week-plan"><i data-lucide="sparkles"></i>${hasPlan ? "Regenerate" : "Generate week"}</button>
@@ -3660,8 +3972,8 @@
               </div>
             </div>
             <div class="logic-strip">
-              <div class="logic-card"><strong>Plan window</strong><small>${weekLabel}</small>${pill(hasPlan ? plan.status : "Not generated", hasPlan ? "study" : "planned")}</div>
-              <div class="logic-card"><strong>Accept queue</strong><small>${accepted}/${plan.items.length || 0} task đã accept · ${added} task đã vào Schedule.</small>${pill(`${accepted} ready`, accepted ? "done" : "planned")}</div>
+              <div class="logic-card"><strong>Khung tuần</strong><small>${weekLabel}</small>${pill(hasPlan ? plan.status : "Chưa tạo", hasPlan ? "study" : "planned")}</div>
+              <div class="logic-card"><strong>Hàng chờ duyệt</strong><small>${accepted}/${plan.items.length || 0} task đã accept · ${added} task đã vào Calendar.</small>${pill(`${accepted} sẵn sàng`, accepted ? "done" : "planned")}</div>
               <div class="logic-card"><strong>Planning basis</strong><small>${report.atRiskGoals.length} risk goals · ${report.templateRecommendations.length} template recommendations.</small>${pill("Review-driven", "doing")}</div>
             </div>
             ${hasPlan ? `
@@ -3722,7 +4034,7 @@
               <span>${escapeHtml(item.source)} · ${escapeHtml(item.reason)}</span>
               <span class="inline-controls">
                 ${pill(warnings.conflict ? "Conflict" : "No conflict", warnings.conflict ? "skipped" : "done")}
-                ${pill(`${warnings.projectedHours.toFixed(1)}h ${warnings.load}`, warnings.load === "Heavy" ? "skipped" : warnings.load === "Full" ? "planned" : "study")}
+                ${pill(`${warnings.projectedHours.toFixed(1)}h ${loadLabel(warnings.load)}`, warnings.load === "Heavy" ? "skipped" : warnings.load === "Full" ? "planned" : "study")}
               </span>
             </div>
             <div class="plan-field" style="grid-column: 1 / -1;">
@@ -3747,10 +4059,10 @@
               <section class="panel">
                 <div class="panel-head">
                   <div>
-                    <h3>Weekly Review</h3>
+                    <h3>Review tuần</h3>
                     <p>Báo cáo tự động từ ${formatDate(report.dates[0])} đến ${formatDate(report.dates[6])}.</p>
                   </div>
-                  <button class="text-button" data-action="download-report"><i data-lucide="download"></i>Export report</button>
+                  <button class="text-button" data-action="download-report"><i data-lucide="download"></i>Xuất report</button>
                 </div>
                 <div class="report-grid">
                   <div class="report-row"><div><strong>Thành tựu lớn nhất trong tuần</strong><small>${escapeHtml(report.achievement)}</small></div>${pill("Insight", "done")}</div>
@@ -3760,44 +4072,46 @@
                 </div>
               </section>
               <section class="panel">
-                <div class="panel-head"><div><h3>Deep Work Hours</h3><p>Biểu đồ theo ngày trong tuần báo cáo.</p></div></div>
+                <div class="panel-head"><div><h3>Giờ học sâu</h3><p>Biểu đồ theo ngày trong tuần báo cáo.</p></div></div>
                 <div class="chart-bars">
                   ${report.dayRows.map((row) => `<div class="bar" style="--accent: var(--blue);"><span style="height: ${Math.max(18, Math.min(100, row.deepHours / 3 * 100))}%;"></span>${formatDate(row.iso, { weekday: "short" })}</div>`).join("")}
                 </div>
               </section>
             </div>
             ${renderNextWeekPlanPanel(report)}
-            <section class="panel">
-              <div class="panel-head"><div><h3>Operating Adjustments</h3><p>Review không chỉ nhìn lại: phần này biến dữ liệu 7 ngày thành rule và template cho tuần tới.</p></div></div>
-              <div class="logic-strip">
-                <div class="logic-card"><strong>Best operating day</strong><small>${report.schedulePatterns.bestDay ? `${formatDate(report.schedulePatterns.bestDay.iso)} · ${report.schedulePatterns.bestDay.done}/${report.schedulePatterns.bestDay.total} tasks done · ${report.schedulePatterns.bestDay.deepHours.toFixed(1)}h deep` : "Chưa có dữ liệu"}</small>${pill("Replicate", "done")}</div>
-                <div class="logic-card"><strong>Weak day guardrail</strong><small>${report.schedulePatterns.weakDay ? `${formatDate(report.schedulePatterns.weakDay.iso)} cần lịch nhẹ hơn và review sớm hơn.` : "Chưa có dữ liệu"}</small>${pill("Protect", "planned")}</div>
-                <div class="logic-card"><strong>Recurring coverage</strong><small>${report.schedulePatterns.recurringTasks} task từ recurring · ${report.schedulePatterns.coverage}% ngày có lịch trong tuần.</small>${pill(state.recurring.length ? `${state.recurring.length} rules` : "No rules", state.recurring.length ? "study" : "planned")}</div>
+            <details class="advanced">
+              <summary>Gợi ý vận hành tuần sau</summary>
+              <div class="advanced-body">
+                <div class="logic-strip">
+                  <div class="logic-card"><strong>Ngày nên lặp lại</strong><small>${report.schedulePatterns.bestDay ? `${formatDate(report.schedulePatterns.bestDay.iso)} · ${report.schedulePatterns.bestDay.done}/${report.schedulePatterns.bestDay.total} task xong · ${report.schedulePatterns.bestDay.deepHours.toFixed(1)}h deep` : "Chưa có dữ liệu"}</small>${pill("Lặp nhịp tốt", "done")}</div>
+                  <div class="logic-card"><strong>Ngày cần nhẹ hơn</strong><small>${report.schedulePatterns.weakDay ? `${formatDate(report.schedulePatterns.weakDay.iso)} cần lịch nhẹ hơn và review sớm hơn.` : "Chưa có dữ liệu"}</small>${pill("Bảo vệ năng lượng", "planned")}</div>
+                  <div class="logic-card"><strong>Độ phủ lịch lặp</strong><small>${report.schedulePatterns.recurringTasks} task từ lịch lặp · ${report.schedulePatterns.coverage}% ngày có lịch trong tuần.</small>${pill(state.recurring.length ? `${state.recurring.length} nhịp` : "Chưa có nhịp", state.recurring.length ? "study" : "planned")}</div>
+                </div>
+                <div class="report-grid">
+                  ${report.operatingAdjustments.map((item) => `
+                    <div class="report-row">
+                      <div>
+                        <strong>${escapeHtml(item.title)}</strong>
+                        <small>${escapeHtml(item.detail)}</small>
+                      </div>
+                      ${item.templateId ? `<button class="text-button" data-action="repeat-template" data-template-id="${item.templateId}"><i data-lucide="repeat-2"></i>Lặp mẫu</button>` : pill("Rule", "study")}
+                    </div>`).join("")}
+                  ${report.templateRecommendations.length ? report.templateRecommendations.map((item) => `
+                    <div class="report-row">
+                      <div>
+                        <strong>${escapeHtml(item.template.title)}</strong>
+                        <small>${escapeHtml(item.reason)}</small>
+                      </div>
+                      <button class="text-button primary" data-action="repeat-template" data-template-id="${item.template.id}"><i data-lucide="calendar-plus"></i>${escapeHtml(recurrencePresets[item.template.recurrence].label)}</button>
+                    </div>`).join("") : `<div class="report-row"><div><strong>Không cần thêm mẫu mới</strong><small>Nhịp tuần này đủ rõ. Giữ lịch lặp hiện tại và chỉ chỉnh ngoại lệ.</small></div>${pill("Ổn định", "done")}</div>`}
+                </div>
               </div>
-              <div class="report-grid">
-                ${report.operatingAdjustments.map((item) => `
-                  <div class="report-row">
-                    <div>
-                      <strong>${escapeHtml(item.title)}</strong>
-                      <small>${escapeHtml(item.detail)}</small>
-                    </div>
-                    ${item.templateId ? `<button class="text-button" data-action="repeat-template" data-template-id="${item.templateId}"><i data-lucide="repeat-2"></i>Lặp template</button>` : pill("Rule", "study")}
-                  </div>`).join("")}
-                ${report.templateRecommendations.length ? report.templateRecommendations.map((item) => `
-                  <div class="report-row">
-                    <div>
-                      <strong>${escapeHtml(item.template.title)}</strong>
-                      <small>${escapeHtml(item.reason)}</small>
-                    </div>
-                    <button class="text-button primary" data-action="repeat-template" data-template-id="${item.template.id}"><i data-lucide="calendar-plus"></i>${escapeHtml(recurrencePresets[item.template.recurrence].label)}</button>
-                  </div>`).join("") : `<div class="report-row"><div><strong>Không cần thêm template mới</strong><small>Nhịp tuần này đủ rõ. Giữ rule hiện tại và chỉ chỉnh ngoại lệ.</small></div>${pill("Stable", "done")}</div>`}
-              </div>
-            </section>
+            </details>
             <section class="panel">
-              <div class="panel-head"><div><h3>Goal Progress Review</h3><p>Đây là phần nối Goals với Weekly Review: goal nào có task hỗ trợ, goal nào bị nghẽn, goal nào nên ưu tiên tuần sau.</p></div></div>
+              <div class="panel-head"><div><h3>Review tiến độ goal</h3><p>Đây là phần nối Goals với Review: goal nào có task hỗ trợ, goal nào bị nghẽn, goal nào nên ưu tiên tuần sau.</p></div></div>
               <div class="logic-strip">
                 <div class="logic-card"><strong>Strongest goal</strong><small>${escapeHtml(report.strongestGoal?.goal.title || "Chưa có")}</small>${pill(`${(report.strongestGoal?.stats.doneHours || 0).toFixed(1)}h done`, "done")}</div>
-                <div class="logic-card"><strong>At-risk goal</strong><small>${escapeHtml(report.atRiskGoals[0]?.goal.title || "Không có goal rủi ro rõ ràng")}</small>${pill(`${report.atRiskGoals.length} risks`, report.atRiskGoals.length ? "planned" : "done")}</div>
+                <div class="logic-card"><strong>Goal có rủi ro</strong><small>${escapeHtml(report.atRiskGoals[0]?.goal.title || "Không có goal rủi ro rõ ràng")}</small>${pill(`${report.atRiskGoals.length} rủi ro`, report.atRiskGoals.length ? "planned" : "done")}</div>
                 <div class="logic-card"><strong>Next-week rule</strong><small>Mỗi goal rủi ro cần ít nhất 2 task có giờ bắt đầu/kết thúc cụ thể.</small>${pill("Plan → Do → Review", "study")}</div>
               </div>
               <div class="report-grid">
@@ -3807,29 +4121,31 @@
                       <strong>${escapeHtml(goal.title)}</strong>
                       <small>${goalLevelLabel(goal.level)} · roll-up ${stats.rollup}% · ${stats.done.length}/${stats.linkedTasks.length} tasks done · ${stats.doneHours.toFixed(1)}/${stats.plannedHours.toFixed(1)}h</small>
                     </div>
-                    ${pill(stats.risk ? "Needs next action" : "On track", stats.risk ? "planned" : "done")}
+                    ${pill(stats.risk ? "Cần task tiếp theo" : "Đúng nhịp", stats.risk ? "planned" : "done")}
                   </div>`).join("")}
               </div>
             </section>
-            <section class="panel">
-              <div class="panel-head"><div><h3>Detailed 7-Day Report</h3><p>Mỗi ngày có task, habit, năng lượng, tập trung và ghi chú điều chỉnh.</p></div></div>
-              <div class="scroll-x">
-                <div class="report-table">
-                  <div class="report-detail">
-                    <div><strong>Ngày</strong></div><div><strong>Deep work</strong></div><div><strong>Tasks</strong></div><div><strong>Habits</strong></div><div><strong>Energy / Focus</strong></div><div><strong>Điều chỉnh</strong></div>
-                  </div>
-                  ${report.dayRows.map((row) => `
+            <details class="advanced">
+              <summary>Bảng chi tiết 7 ngày</summary>
+              <div class="advanced-body">
+                <div class="scroll-x">
+                  <div class="report-table">
                     <div class="report-detail">
-                      <div>${formatDate(row.iso)}</div>
-                      <div>${row.deepHours.toFixed(1)}h</div>
-                      <div>${row.done}/${row.total} done · ${row.skipped} skipped</div>
-                      <div>${row.habitDone}/${row.habitTotal}</div>
-                      <div>${row.energy}/10 · ${row.concentration}/10</div>
-                      <div>${escapeHtml(row.day.reflection.tomorrow || "Chưa ghi")}</div>
-                    </div>`).join("")}
+                      <div><strong>Ngày</strong></div><div><strong>Deep work</strong></div><div><strong>Tasks</strong></div><div><strong>Habits</strong></div><div><strong>Energy / Focus</strong></div><div><strong>Điều chỉnh</strong></div>
+                    </div>
+                    ${report.dayRows.map((row) => `
+                      <div class="report-detail">
+                        <div>${formatDate(row.iso)}</div>
+                        <div>${row.deepHours.toFixed(1)}h</div>
+                        <div>${row.done}/${row.total} done · ${row.skipped} skipped</div>
+                        <div>${row.habitDone}/${row.habitTotal}</div>
+                        <div>${row.energy}/10 · ${row.concentration}/10</div>
+                        <div>${escapeHtml(row.day.reflection.tomorrow || "Chưa ghi")}</div>
+                      </div>`).join("")}
+                  </div>
                 </div>
               </div>
-            </section>
+            </details>
           </div>`;
       }
 
@@ -3863,8 +4179,8 @@
           <section class="panel">
             <div class="panel-head">
               <div>
-                <h3>Task Templates</h3>
-                <p>Bấm một lần để tạo task chuẩn, hoặc biến template thành lịch lặp.</p>
+                <h3>Mẫu việc nhanh</h3>
+                <p>Chọn một mẫu quen thuộc để tạo task ngay, không phải nhập lại từ đầu.</p>
               </div>
             </div>
             <div class="logic-strip">
@@ -3873,7 +4189,7 @@
                   <strong>${escapeHtml(template.title)}</strong>
                   <small>${template.start}-${template.end} · ${template.type} · ${escapeHtml(taskGoalLabel(template))}</small>
                   <div class="inline-controls">
-                    <button class="text-button" data-action="apply-template" data-template-id="${template.id}"><i data-lucide="plus"></i>Ngày đang chọn</button>
+                    <button class="text-button" data-action="apply-template" data-template-id="${template.id}"><i data-lucide="plus"></i>Thêm vào ngày chọn</button>
                     <button class="text-button" data-action="repeat-template" data-template-id="${template.id}"><i data-lucide="repeat-2"></i>${recurrencePresets[template.recurrence].label}</button>
                   </div>
                 </div>`).join("")}
@@ -3886,8 +4202,8 @@
           <section class="panel">
             <div class="panel-head">
               <div>
-                <h3>Recurring Schedule</h3>
-                <p>Các rule này tự tạo task trong 4 tuần tới và chống duplicate bằng recurring ID.</p>
+                <h3>Lịch lặp</h3>
+                <p>Những việc cố định sẽ tự xuất hiện trong 4 tuần tới, còn bạn chỉ cần chỉnh ngoại lệ.</p>
               </div>
             </div>
             <div class="report-grid">
@@ -3898,11 +4214,11 @@
                     <small>${rule.start}-${rule.end} · ${recurrenceLabel(rule.days)} · từ ${rule.startDate} · ${escapeHtml(taskGoalLabel(rule))}</small>
                   </div>
                   <div class="inline-controls">
-                    ${pill(rule.active ? "Active" : "Paused", rule.active ? "done" : "planned")}
+                    ${pill(rule.active ? "Đang bật" : "Tạm dừng", rule.active ? "done" : "planned")}
                     <button class="action" aria-label="${rule.active ? "Tạm dừng rule" : "Bật lại rule"}" data-action="toggle-recurring" data-recurring-id="${rule.id}"><i data-lucide="${rule.active ? "pause" : "play"}"></i></button>
                     <button class="action danger" aria-label="Xóa rule lặp" data-action="delete-recurring" data-recurring-id="${rule.id}"><i data-lucide="trash-2"></i></button>
                   </div>
-                </div>`).join("") : `<div class="empty-state">Chưa có lịch lặp. Dùng Task Templates hoặc chọn Repeat trong modal task để tạo nhịp cố định.</div>`}
+                </div>`).join("") : `<div class="empty-state">Chưa có lịch lặp. Bấm một mẫu việc nhanh rồi chọn nhịp lặp để app tự tạo lịch cố định.</div>`}
             </div>
           </section>`;
       }
@@ -3924,30 +4240,30 @@
           <section class="panel">
             <div class="panel-head">
               <div>
-                <h3>Adaptive Rescheduler</h3>
-                <p>Khi task bị skip, chồng giờ hoặc ngày quá tải, app đề xuất recovery/move/shorten nhưng không tự sửa lịch ngầm.</p>
+                <h3>Sửa lịch thông minh</h3>
+                <p>Khi task bị skip, chồng giờ hoặc ngày quá tải, app gợi ý cách hồi phục nhưng vẫn để bạn duyệt trước.</p>
               </div>
               <div class="inline-controls">
-                <button class="text-button primary" data-action="generate-adaptive-reschedule"><i data-lucide="wand-sparkles"></i>${hasSuggestions ? "Refresh suggestions" : "Scan schedule"}</button>
-                ${hasSuggestions ? `<button class="text-button" data-action="clear-adaptive-reschedule"><i data-lucide="eraser"></i>Clear</button>` : ""}
+                <button class="text-button primary" data-action="generate-adaptive-reschedule"><i data-lucide="wand-sparkles"></i>${hasSuggestions ? "Quét lại lịch" : "Quét lịch"}</button>
+                ${hasSuggestions ? `<button class="text-button" data-action="clear-adaptive-reschedule"><i data-lucide="eraser"></i>Xóa gợi ý</button>` : ""}
               </div>
             </div>
             <div class="logic-strip">
-              <div class="logic-card"><strong>Recovery signals</strong><small>${signals.skipped} skipped 7 ngày · ${signals.conflicts} conflict tuần này.</small>${pill(`${signals.skipped + signals.conflicts} issues`, signals.skipped + signals.conflicts ? "planned" : "done")}</div>
-              <div class="logic-card"><strong>Load risk</strong><small>${signals.overload} ngày có lịch từ 6h trở lên.</small>${pill(signals.overload ? "Needs rebalance" : "Stable", signals.overload ? "skipped" : "done")}</div>
-              <div class="logic-card"><strong>Apply queue</strong><small>${pending} suggestion đang chờ · ${applied} đã áp dụng.</small>${pill(`${pending} pending`, pending ? "doing" : "study")}</div>
+              <div class="logic-card"><strong>Tín hiệu cần cứu lịch</strong><small>${signals.skipped} skipped trong 7 ngày · ${signals.conflicts} conflict tuần này.</small>${pill(`${signals.skipped + signals.conflicts} điểm lệch`, signals.skipped + signals.conflicts ? "planned" : "done")}</div>
+              <div class="logic-card"><strong>Rủi ro quá tải</strong><small>${signals.overload} ngày có lịch từ 6h trở lên.</small>${pill(signals.overload ? "Cần cân lại" : "Ổn định", signals.overload ? "skipped" : "done")}</div>
+              <div class="logic-card"><strong>Hàng chờ duyệt</strong><small>${pending} gợi ý đang chờ · ${applied} đã áp dụng.</small>${pill(`${pending} đang chờ`, pending ? "doing" : "study")}</div>
             </div>
             ${hasSuggestions ? `
               <div class="plan-flow">
                 <div class="plan-toolbar">
                   <div class="inline-controls">
-                    <button class="text-button" data-action="apply-all-adaptive-reschedules"><i data-lucide="check-check"></i>Apply all clean</button>
+                    <button class="text-button" data-action="apply-all-adaptive-reschedules"><i data-lucide="check-check"></i>Áp dụng gợi ý sạch</button>
                   </div>
-                  <span class="muted-line">Có thể sửa target date/time trước khi apply. Task recovery giữ lại task skipped gốc để còn audit trail.</span>
+                  <span class="muted-line">Bạn có thể sửa ngày/giờ trước khi áp dụng. Task bị skip vẫn được giữ lại để còn nhìn thấy lịch sử.</span>
                 </div>
                 ${rescheduler.suggestions.map((suggestion) => renderAdaptiveSuggestion(suggestion)).join("")}
               </div>` : `
-              <div class="empty-state">Chưa có đề xuất. Bấm Scan schedule để tìm task skipped, conflict, overload hoặc low-energy block cần điều chỉnh.</div>`}
+              <div class="empty-state">Chưa có gợi ý. Bấm Quét lịch để tìm task bị skip, chồng giờ, quá tải hoặc block năng lượng thấp cần chỉnh.</div>`}
           </section>`;
       }
 
@@ -3994,7 +4310,7 @@
               <span>${escapeHtml(suggestion.issue)} · ${escapeHtml(suggestion.reason)} · From ${formatDate(suggestion.sourceDate)}</span>
               <span class="inline-controls">
                 ${pill(warnings.conflict ? "Conflict" : "No conflict", warnings.conflict ? "skipped" : "done")}
-                ${pill(`${warnings.projected.toFixed(1)}h ${warnings.load}`, warnings.load === "Heavy" ? "skipped" : warnings.load === "Full" ? "planned" : "study")}
+                ${pill(`${warnings.projected.toFixed(1)}h ${loadLabel(warnings.load)}`, warnings.load === "Heavy" ? "skipped" : warnings.load === "Full" ? "planned" : "study")}
               </span>
             </div>
             <div class="plan-field" style="grid-column: 1 / -1;">
@@ -4009,21 +4325,18 @@
         const selectedStats = scheduleStats();
         document.getElementById("schedule").innerHTML = `
           <div class="stack">
-            ${renderTaskTemplates()}
-            ${renderRecurringRules()}
-            ${renderAdaptiveRescheduler()}
             <section class="panel">
               <div class="panel-head">
                 <div>
-                  <h3>Schedule Calendar</h3>
-                  <p>Lịch không chỉ chứa task: nó cho biết task đó phục vụ goal nào, có xung đột không, và ngày đang quá tải hay còn chỗ.</p>
+                  <h3>Lịch tuần</h3>
+                  <p>Tự viết, sửa hoặc kéo lại nhịp từng ngày. App chỉ gợi ý khi lịch có điểm lệch.</p>
                 </div>
-                <button class="text-button primary" data-modal="scheduleModal"><i data-lucide="calendar-plus"></i>Thêm lịch trình</button>
+                <button class="text-button primary" data-modal="scheduleModal"><i data-lucide="calendar-plus"></i>Tự viết task</button>
               </div>
               <div class="logic-strip">
-                <div class="logic-card"><strong>Load hôm nay</strong><small>${selectedStats.plannedHours.toFixed(1)}h planned · ${selectedStats.load}</small>${pill(selectedStats.load, selectedStats.load === "Overloaded" ? "skipped" : selectedStats.load === "Full" ? "planned" : "done")}</div>
-                <div class="logic-card"><strong>Goal coverage</strong><small>${selectedStats.goalTasks.length}/${getDay().tasks.length} task có gắn goal. ${selectedStats.highValue.length} high-value blocks.</small>${pill(`${selectedStats.goalTasks.length} linked`, "study")}</div>
-                <div class="logic-card"><strong>Conflict check</strong><small>${selectedStats.conflicts.length ? "Có task chồng giờ, cần sửa trước khi bắt đầu." : "Không có task chồng giờ trong ngày."}</small>${pill(selectedStats.conflicts.length ? `${selectedStats.conflicts.length} conflict` : "Clear", selectedStats.conflicts.length ? "skipped" : "done")}</div>
+              <div class="logic-card"><strong>Tải ngày chọn</strong><small>${selectedStats.plannedHours.toFixed(1)}h đã lên lịch · ${loadLabel(selectedStats.load)}</small>${pill(loadLabel(selectedStats.load), selectedStats.load === "Overloaded" ? "skipped" : selectedStats.load === "Full" ? "planned" : "done")}</div>
+                <div class="logic-card"><strong>Gắn với goal</strong><small>${selectedStats.goalTasks.length}/${getDay().tasks.length} task có gắn goal. ${selectedStats.highValue.length} block giá trị cao.</small>${pill(`${selectedStats.goalTasks.length} linked`, "study")}</div>
+                <div class="logic-card"><strong>Kiểm tra trùng giờ</strong><small>${selectedStats.conflicts.length ? "Có task chồng giờ, cần sửa trước khi bắt đầu." : "Không có task chồng giờ trong ngày."}</small>${pill(selectedStats.conflicts.length ? `${selectedStats.conflicts.length} conflict` : "Clear", selectedStats.conflicts.length ? "skipped" : "done")}</div>
               </div>
               <div class="calendar">
                 ${dates.map((iso) => {
@@ -4038,21 +4351,24 @@
                           <button class="action" aria-label="Thêm task cho ngày này" data-action="new-task-for-date" data-date="${iso}"><i data-lucide="plus"></i></button>
                         </span>
                       </header>
-                      <small class="muted-line">${stats.plannedHours.toFixed(1)}h · ${stats.goalTasks.length} goal tasks · ${stats.conflicts.length} conflicts</small>
-                      ${day.tasks.slice(0, 4).map((task) => `<div class="mini-task" style="--accent: ${task.type === "Workout" ? "var(--amber)" : task.type === "English" ? "var(--violet)" : task.type === "Project" ? "var(--green)" : "var(--blue)"};"><strong>${escapeHtml(task.title)}</strong><span>${task.start}-${task.end} · ${task.status}</span><span class="goal-link">${escapeHtml(taskGoalLabel(task))}</span><div class="inline-controls"><button class="action" aria-label="Sửa task" data-action="edit-task" data-date="${iso}" data-task-id="${task.id}"><i data-lucide="pencil"></i></button><button class="action danger" aria-label="Xóa task" data-action="delete-task" data-date="${iso}" data-task-id="${task.id}"><i data-lucide="trash-2"></i></button></div></div>`).join("") || `<div class="empty-state">Chưa có task. Bấm + để tự viết lịch.</div>`}
+                      <small class="muted-line">${stats.plannedHours.toFixed(1)}h · ${stats.goalTasks.length} task gắn goal · ${stats.conflicts.length} trùng giờ</small>
+                      ${day.tasks.slice(0, 4).map((task) => `<div class="mini-task" style="--accent: ${task.type === "Workout" ? "var(--amber)" : task.type === "English" ? "var(--violet)" : task.type === "Project" ? "var(--green)" : "var(--blue)"};"><strong>${escapeHtml(task.title)}</strong><span>${task.start}-${task.end} · ${task.status}</span><span class="goal-link">${escapeHtml(taskGoalLabel(task))}</span><div class="inline-controls"><button class="action" aria-label="Sửa task" data-action="edit-task" data-date="${iso}" data-task-id="${task.id}"><i data-lucide="pencil"></i></button><button class="action danger" aria-label="Xóa task" data-action="delete-task" data-date="${iso}" data-task-id="${task.id}"><i data-lucide="trash-2"></i></button></div></div>`).join("") || renderTaskEmptyState("calendar", iso)}
                     </article>`;
                 }).join("")}
               </div>
               <div style="margin-top: 14px;">
-                <div class="panel-head"><div><h3>Selected Day Logic · ${formatDate(state.currentDate)}</h3><p>Những điểm cần xử lý trước khi bước vào ngày.</p></div></div>
+                <div class="panel-head"><div><h3>Ngày đang chọn · ${formatDate(state.currentDate)}</h3><p>Những điểm cần xử lý trước khi bắt đầu ngày này.</p></div></div>
                 <div class="conflict-list">
                   ${selectedStats.conflicts.length ? selectedStats.conflicts.map(([first, second]) => `
-                    <div class="report-row"><div><strong>Time conflict</strong><small>${escapeHtml(first.title)} (${first.start}-${first.end}) chồng với ${escapeHtml(second.title)} (${second.start}-${second.end}).</small></div>${pill("Fix", "skipped")}</div>`).join("") : `<div class="report-row"><div><strong>No time conflicts</strong><small>Lịch trong ngày có thể thực thi theo thứ tự thời gian.</small></div>${pill("Clear", "done")}</div>`}
-                  ${!getDay().tasks.length ? `<div class="report-row"><div><strong>Ngày này chưa có lịch</strong><small>Bấm nút + trên ô ngày hoặc “Thêm lịch trình” để tự viết task đầu tiên.</small></div>${pill("Empty", "planned")}</div>` : selectedStats.openImportant.length ? selectedStats.openImportant.map((task) => `
+                    <div class="report-row"><div><strong>Trùng giờ</strong><small>${escapeHtml(first.title)} (${first.start}-${first.end}) chồng với ${escapeHtml(second.title)} (${second.start}-${second.end}).</small></div>${pill("Sửa", "skipped")}</div>`).join("") : `<div class="report-row"><div><strong>Không trùng giờ</strong><small>Lịch trong ngày có thể thực thi theo thứ tự thời gian.</small></div>${pill("Ổn", "done")}</div>`}
+                  ${!getDay().tasks.length ? `<div class="report-row"><div><strong>Ngày này chưa có lịch</strong><small>Bấm nút + trên ô ngày hoặc “Tự viết task” để tạo task đầu tiên.</small></div>${pill("Trống", "planned")}</div>` : selectedStats.openImportant.length ? selectedStats.openImportant.map((task) => `
                     <div class="report-row"><div><strong>${escapeHtml(task.title)}</strong><small>${escapeHtml(taskGoalLabel(task))} · ${task.start}-${task.end} · ${task.status}</small></div>${pill("Next action", "doing")}</div>`).join("") : `<div class="report-row"><div><strong>Không còn goal task đang mở</strong><small>Chuyển sang Reflection hoặc chuẩn bị ngày kế tiếp.</small></div>${pill("Done", "done")}</div>`}
                 </div>
               </div>
             </section>
+            ${renderTaskTemplates()}
+            ${renderRecurringRules()}
+            ${renderAdaptiveRescheduler()}
           </div>`;
       }
 
@@ -4080,7 +4396,7 @@
               <div class="stack">
                 ${recent.map(([iso, entry]) => `
                   <article class="journal-entry panel">
-                    <div class="goal-top"><strong>${formatDate(iso)}</strong><button class="text-button" data-action="set-date-view" data-date="${iso}" data-target-view="reflection">Open</button></div>
+                    <div class="goal-top"><strong>${formatDate(iso)}</strong><button class="text-button" data-action="set-date-view" data-date="${iso}" data-target-view="reflection">Mở</button></div>
                     <p class="subtle">${escapeHtml(entry.reflection.progress || "Chưa ghi tiến bộ.")}</p>
                   </article>`).join("")}
               </div>
@@ -4172,7 +4488,7 @@
             </div>
           </div>
           <section class="panel">
-            <div class="panel-head"><div><h3>Today Queue</h3><p>${queue.length ? "Task chưa hoàn thành trong ngày đang chọn." : "Không còn task đang mở."}</p></div></div>
+            <div class="panel-head"><div><h3>Việc còn mở</h3><p>${queue.length ? "Task chưa hoàn thành trong ngày đang chọn." : "Không còn task đang mở."}</p></div></div>
             <div class="today-list">
               ${queue.map((task) => `<div class="task-row"><div><strong>${escapeHtml(task.title)}</strong><span>${task.start}</span></div>${pill(task.type, typeClass[task.type] || "")}</div>`).join("") || `<div class="empty-state">Trống. Có thể thêm task hoặc chuyển sang Reflection.</div>`}
             </div>
@@ -4261,6 +4577,18 @@
         refreshIcons();
       }
 
+      function openTaskDrawer(iso, taskId) {
+        taskDrawerContext = { date: iso, taskId };
+        renderTaskDrawer();
+        document.getElementById("taskDrawer").classList.add("open");
+        refreshIcons();
+      }
+
+      function closeTaskDrawer() {
+        taskDrawerContext = null;
+        document.getElementById("taskDrawer")?.classList.remove("open");
+      }
+
       function ensureModal(id) {
         if (document.getElementById(id)) return document.getElementById(id);
         const modal = document.createElement("div");
@@ -4270,6 +4598,17 @@
         modal.setAttribute("aria-modal", "true");
         document.body.appendChild(modal);
         return modal;
+      }
+
+      function ensureDrawer() {
+        if (document.getElementById("taskDrawer")) return document.getElementById("taskDrawer");
+        const drawer = document.createElement("div");
+        drawer.className = "drawer-backdrop";
+        drawer.id = "taskDrawer";
+        drawer.setAttribute("role", "dialog");
+        drawer.setAttribute("aria-modal", "true");
+        document.body.appendChild(drawer);
+        return drawer;
       }
 
       function renderGoalModal() {
@@ -4332,6 +4671,49 @@
               <button class="text-button primary" type="submit"><i data-lucide="save"></i>${existingTask ? "Lưu chỉnh sửa" : "Lưu lịch trình"}</button>
             </form>
           </div>`;
+      }
+
+      function renderTaskDrawer() {
+        const drawer = ensureDrawer();
+        const context = taskDrawerContext || {};
+        const iso = context.date || state.currentDate;
+        const task = context.taskId ? findTask(iso, context.taskId) : null;
+        if (!task) {
+          drawer.innerHTML = `<aside class="drawer"><div class="modal-head"><h3>Task</h3><button type="button" class="icon-button" aria-label="Đóng drawer" data-close-drawer><i data-lucide="x"></i></button></div><div class="empty-state">Không tìm thấy task.</div></aside>`;
+          return;
+        }
+        drawer.innerHTML = `
+          <aside class="drawer">
+            <form data-form="task-drawer" class="journal-form">
+              <div class="modal-head">
+                <div>
+                  <h3>Chi tiết task</h3>
+                  <p class="subtle">${formatDate(iso)} · ${escapeHtml(taskGoalLabel(task))}</p>
+                </div>
+                <button type="button" class="icon-button" aria-label="Đóng drawer" data-close-drawer><i data-lucide="x"></i></button>
+              </div>
+              <input type="hidden" name="taskId" value="${escapeHtml(task.id)}">
+              <input type="hidden" name="originalDate" value="${escapeHtml(iso)}">
+              <div class="field"><label>Task</label><input name="title" required value="${escapeHtml(task.title)}"></div>
+              <div class="input-row">
+                <div class="field"><label>Ngày</label><input name="date" type="date" value="${escapeHtml(iso)}"></div>
+                <div class="field"><label>Start</label><input name="start" type="time" value="${escapeHtml(task.start)}"></div>
+                <div class="field"><label>End</label><input name="end" type="time" value="${escapeHtml(task.end)}"></div>
+              </div>
+              <div class="input-row">
+                <div class="field"><label>Status</label><select name="status">${["Planned", "Doing", "Done", "Skipped"].map((status) => `<option ${status === task.status ? "selected" : ""}>${status}</option>`).join("")}</select></div>
+                <div class="field"><label>Type</label><select name="type">${["Study", "Workout", "Project", "English", "Rest", "Social", "Review"].map((type) => `<option ${type === task.type ? "selected" : ""}>${type}</option>`).join("")}</select></div>
+                <div class="field"><label>Goal</label><select name="goalId">${taskGoalOptions(task.goalId)}</select></div>
+              </div>
+              <div class="field"><label>Notes</label><textarea name="notes">${escapeHtml(task.notes || "")}</textarea></div>
+              <div class="quick-actions">
+                <button class="text-button primary" type="submit"><i data-lucide="save"></i>Lưu task</button>
+                <button class="text-button" type="button" data-action="drawer-mark-done"><i data-lucide="check"></i>Đánh dấu xong</button>
+                <button class="text-button" type="button" data-action="fix-schedule"><i data-lucide="wand-sparkles"></i>Sửa lịch</button>
+                <button class="text-button" type="button" data-action="drawer-open-full-form"><i data-lucide="panel-right-open"></i>Form đầy đủ</button>
+              </div>
+            </form>
+          </aside>`;
       }
 
       function renderSocialModal() {
@@ -4447,6 +4829,12 @@
           return;
         }
 
+        const closeDrawerButton = event.target.closest("[data-close-drawer]");
+        if (closeDrawerButton) {
+          closeTaskDrawer();
+          return;
+        }
+
         const actionButton = event.target.closest("[data-action]");
         if (!actionButton) return;
         const action = actionButton.dataset.action;
@@ -4458,6 +4846,106 @@
           saveState();
           renderAll();
           showToast(day.focus.completed ? "Đã đánh dấu focus hôm nay hoàn thành." : "Đã mở lại focus hôm nay.");
+        }
+
+        if (action === "finish-onboarding") {
+          state.ui.setupComplete = true;
+          saveState();
+          renderAll();
+          showToast("Đã ẩn setup nhanh. Có thể mở lại trong Settings sau.");
+          return;
+        }
+
+        if (action === "setup-add-goal") {
+          openModal("goalModal");
+          return;
+        }
+
+        if (action === "setup-toggle-core-habits") {
+          const day = getDay();
+          ["sleep", "deepWork", "review"].forEach((habit) => { day.habits[habit] = true; });
+          saveState();
+          renderAll();
+          showToast("Đã chọn bộ habit nền: sleep, deep work, review.");
+          return;
+        }
+
+        if (action === "setup-enable-rhythm") {
+          const template = templateById("deep-embedded");
+          const rule = template ? createRecurringRuleFromTask(buildTaskFromTemplate(template), template.recurrence, state.currentDate) : null;
+          const added = rule ? materializeRecurring() : 0;
+          saveState();
+          renderAll();
+          showToast(rule ? `Đã bật nhịp lặp deep work và sinh ${added} task.` : "Không tìm thấy template deep work.");
+          return;
+        }
+
+        if (action === "generate-today-plan") {
+          const added = generateTodayPlan();
+          saveState();
+          renderAll();
+          showToast(added ? `Đã tạo ${added} task mẫu cho hôm nay.` : "Hôm nay đã có các task mẫu rồi.");
+          return;
+        }
+
+        if (action === "start-next-task") {
+          const task = nextActionTask();
+          if (!task) {
+            const added = generateTodayPlan();
+            saveState();
+            renderAll();
+            showToast(added ? "Đã tạo plan mẫu. Bấm Start lần nữa để bắt đầu." : "Chưa có task để bắt đầu.");
+            return;
+          }
+          task.status = "Doing";
+          const day = getDay();
+          day.focus.task = task.title;
+          day.focus.why = task.notes || taskGoalLabel(task);
+          day.focus.start = task.start;
+          day.focus.end = task.end;
+          saveState();
+          renderAll();
+          showToast(`Đã chuyển “${task.title}” sang Doing.`);
+          return;
+        }
+
+        if (action === "create-minimum-block") {
+          const minutes = Number(actionButton.dataset.minutes) || 30;
+          const added = createMinimumBlock(minutes);
+          saveState();
+          renderAll();
+          showToast(added ? `Đã tạo bản rút gọn ${minutes} phút.` : "Bản rút gọn đã có trong lịch.");
+          return;
+        }
+
+        if (action === "fix-schedule") {
+          const rescheduler = generateAdaptiveReschedules();
+          saveState();
+          renderAll();
+          activateView("schedule");
+          showToast(rescheduler.suggestions.length ? `Tìm thấy ${rescheduler.suggestions.length} gợi ý sửa lịch.` : "Lịch hiện chưa có lệch rõ ràng.");
+          return;
+        }
+
+        if (action === "drawer-mark-done") {
+          const task = taskDrawerContext ? findTask(taskDrawerContext.date, taskDrawerContext.taskId) : null;
+          if (!task) return;
+          task.status = "Done";
+          if (task.type === "Workout") getDay(taskDrawerContext.date).habits.workout = true;
+          if (task.type === "Review") getDay(taskDrawerContext.date).habits.review = true;
+          saveState();
+          closeTaskDrawer();
+          renderAll();
+          showToast("Đã đánh dấu task hoàn thành.");
+          return;
+        }
+
+        if (action === "drawer-open-full-form") {
+          if (!taskDrawerContext) return;
+          taskModalContext = { ...taskDrawerContext };
+          closeTaskDrawer();
+          openModal("scheduleModal");
+          return;
         }
 
         if (action === "generate-next-week-plan") {
@@ -4547,7 +5035,7 @@
           state.adaptiveRescheduler = createBlankRescheduler();
           saveState();
           renderAll();
-          showToast("Đã xóa draft Adaptive Rescheduler.");
+          showToast("Đã xóa gợi ý sửa lịch.");
           return;
         }
 
@@ -4584,10 +5072,12 @@
         if (action === "apply-template") {
           const template = templateById(actionButton.dataset.templateId);
           if (!template) return;
-          const added = addTaskToDate(state.currentDate, buildTaskFromTemplate(template));
+          const targetDate = actionButton.dataset.date || state.currentDate;
+          const added = addTaskToDate(targetDate, buildTaskFromTemplate(template));
+          state.currentDate = targetDate;
           saveState();
           renderAll();
-          showToast(added ? `Đã thêm “${template.title}” vào ngày đang chọn.` : "Task này đã có trong ngày đang chọn.");
+          showToast(added ? `Đã thêm “${template.title}” vào ${formatDate(targetDate)}.` : "Task này đã có trong ngày đang chọn.");
           return;
         }
 
@@ -4632,11 +5122,8 @@
         }
 
         if (action === "edit-task") {
-          taskModalContext = {
-            date: actionButton.dataset.date,
-            taskId: actionButton.dataset.taskId
-          };
-          openModal("scheduleModal");
+          openTaskDrawer(actionButton.dataset.date, actionButton.dataset.taskId);
+          return;
         }
 
         if (action === "new-task-for-date") {
@@ -4731,6 +5218,8 @@
       document.addEventListener("click", (event) => {
         const backdrop = event.target.closest(".modal-backdrop");
         if (backdrop && event.target === backdrop) backdrop.classList.remove("open");
+        const drawerBackdrop = event.target.closest(".drawer-backdrop");
+        if (drawerBackdrop && event.target === drawerBackdrop) closeTaskDrawer();
       });
 
       document.addEventListener("change", (event) => {
@@ -4912,6 +5401,31 @@
           }
           state.currentDate = data.date;
           taskModalContext = null;
+        }
+
+        if (form.dataset.form === "task-drawer") {
+          const originalDay = getDay(data.originalDate || data.date);
+          const existing = originalDay.tasks.find((task) => task.id === data.taskId);
+          if (existing) {
+            originalDay.tasks = originalDay.tasks.filter((task) => task.id !== data.taskId);
+            const updated = {
+              ...existing,
+              title: data.title,
+              start: data.start,
+              end: data.end,
+              type: data.type,
+              status: data.status,
+              goalId: data.goalId || inferGoalForTask(data),
+              notes: data.notes
+            };
+            getDay(data.date).tasks.push(updated);
+            if (updated.type === "Workout") getDay(data.date).habits.workout = updated.status === "Done";
+            if (updated.type === "Review") getDay(data.date).habits.review = updated.status === "Done";
+            if (updated.status === "Skipped") generateAdaptiveReschedules();
+            state.currentDate = data.date;
+            showToast("Đã lưu task trong drawer.");
+          }
+          closeTaskDrawer();
         }
 
         if (form.dataset.form === "person") {
